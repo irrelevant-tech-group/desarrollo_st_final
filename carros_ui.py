@@ -249,10 +249,10 @@ def get_franquicia_by_phone(phone_number):
     sheet_id = "1u4cuP7lDf6hRex95rr64y5a10RvBi81Y-tLDeKOPxck"
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
-    #credentials_path = service_account_info = json.loads(os.environ["GOOGLE_CREDENTIALS"])
+    #credentials_path = service_account_info = json.loads(os.getenv("GOOGLE_CREDENTIALS"))
     #creds = ServiceAccountCredentials.from_json_keyfile_name(credentials_path, scope)
 
-    creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ["GOOGLE_CREDENTIALS"]), scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.getenv("GOOGLE_CREDENTIALS")), scope)
 
     client = gspread.authorize(creds)
     try:
@@ -302,10 +302,10 @@ def check_vehicle_captado(url_to_check):
     sheet_id = "1u4cuP7lDf6hRex95rr64y5a10RvBi81Y-tLDeKOPxck"
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
-        #credentials_path = service_account_info = json.loads(os.environ["GOOGLE_CREDENTIALS"])
+        #credentials_path = service_account_info = json.loads(os.getenv("GOOGLE_CREDENTIALS"))
     #creds = ServiceAccountCredentials.from_json_keyfile_name(credentials_path, scope)
 
-    creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ["GOOGLE_CREDENTIALS"]), scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.getenv("GOOGLE_CREDENTIALS")), scope)
     client = gspread.authorize(creds)
     try:
         sheet = client.open_by_key(sheet_id)
@@ -347,10 +347,10 @@ def process_url_in_google_sheet(url_to_check, commercial_name, phone_number,
     sheet_id = "1u4cuP7lDf6hRex95rr64y5a10RvBi81Y-tLDeKOPxck"
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
-    #credentials_path = service_account_info = json.loads(os.environ["GOOGLE_CREDENTIALS"])
+    #credentials_path = service_account_info = json.loads(os.getenv("GOOGLE_CREDENTIALS"))
     #creds = ServiceAccountCredentials.from_json_keyfile_name(credentials_path, scope)
 
-    creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ["GOOGLE_CREDENTIALS"]), scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.getenv("GOOGLE_CREDENTIALS")), scope)
     client = gspread.authorize(creds)
 
     try:
@@ -438,10 +438,10 @@ def log_peticion_in_google_sheet(commercial_name, date_value, hora_peticion, cos
     logger.info(f"Registrando petición en 'Peticiones' para comercial={commercial_name}, resultado={resultado}")
     sheet_id = "1P-tZT0Uekz96IEZ2f6UqUozWsn9X0NV77V-IVPfPlpA"
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        #credentials_path = service_account_info = json.loads(os.environ["GOOGLE_CREDENTIALS"])
+        #credentials_path = service_account_info = json.loads(os.getenv("GOOGLE_CREDENTIALS"))
     #creds = ServiceAccountCredentials.from_json_keyfile_name(credentials_path, scope)
 
-    creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ["GOOGLE_CREDENTIALS"]), scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.getenv("GOOGLE_CREDENTIALS")), scope)
     client = gspread.authorize(creds)
     try:
         # Convertir cost a string con 7 decimales, evitando que se guarde como texto
@@ -1078,10 +1078,11 @@ def create_required_directories():
 
 if __name__ == '__main__':
     create_required_directories()
-    creds_path = service_account_info = json.loads(os.environ["GOOGLE_CREDENTIALS"])
+    creds_path = service_account_info = json.loads(os.getenv("GOOGLE_CREDENTIALS"))
     if not os.path.exists(creds_path):
         print("ADVERTENCIA: No se encuentra 'creds-carros.json'")
         print(f"Coloca el archivo en: {creds_path}")
+        print("esta es la variable GOOGLE_CREDENTIALS:")
 
     print("Servidor en http://localhost:8000")
     logger.info("Iniciando aplicación Flask en puerto 8000")
