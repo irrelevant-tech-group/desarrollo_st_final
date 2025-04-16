@@ -1082,7 +1082,6 @@ if __name__ == '__main__':
     if not os.path.exists(creds_path):
         print("ADVERTENCIA: No se encuentra 'creds-carros.json'")
         print(f"Coloca el archivo en: {creds_path}")
-        print("esta es la variable GOOGLE_CREDENTIALS:")
 
     print("Servidor en http://localhost:8000")
     logger.info("Iniciando aplicación Flask en puerto 8000")
