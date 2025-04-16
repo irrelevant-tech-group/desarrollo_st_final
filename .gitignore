@@ -24,5 +24,4 @@ facebook_cookies.pkl
 
 # Virtual Environment
 venv/
-
 .env
