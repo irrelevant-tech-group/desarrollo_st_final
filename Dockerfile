@@ -7,6 +7,9 @@ WORKDIR /code
 # Copia los archivos de dependencias primero para optimizar caché
 COPY ./requirements.txt /code/requirements.txt
 
+# Fix vulnerabilities
+RUN pip install --upgrade setuptools
+
 # Instala las dependencias
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
