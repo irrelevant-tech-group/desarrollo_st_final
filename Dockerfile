@@ -4,6 +4,9 @@ FROM python:3.11-slim
 # Define el directorio de trabajo dentro del contenedor
 WORKDIR /code
 
+# Instalar bash y otras utilidades básicas
+RUN apt-get update && apt-get install -y bash curl
+
 # Copia los archivos de dependencias primero para optimizar caché
 COPY ./requirements.txt /code/requirements.txt
 
