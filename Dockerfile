@@ -55,9 +55,11 @@ COPY . .
 
 # Define la variable de entorno FLASK_APP
 ENV FLASK_APP=carros_ui.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=8000
 
-# Expone el puerto para Gunicorn
+# Expone el puerto para Flask
 EXPOSE 8000
 
-# Comando para ejecutar la aplicación con Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "1", "--timeout", "300", "--keep-alive", "120", "--worker-class", "sync", "--preload", "carros_ui:app"]
+# Comando para ejecutar la aplicación
+CMD ["flask", "run"]
