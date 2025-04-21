@@ -123,9 +123,9 @@ class VehicleMarketplaceAnalyzer:
                 page = context.new_page()
                 page.goto(url)
                 page.wait_for_load_state('networkidle')
-                page.wait_for_timeout(10000)  # Esperar 10 segundos adicionales
+                page.wait_for_timeout(15000)  # Esperar 10 segundos adicionales
                 try:
-                    page.wait_for_selector('text=Descripción del vendedor', timeout=30000)
+                    page.wait_for_selector('text=Descripción del vendedor', timeout=15000)
                 except:
                     print("No se encontró el selector específico, continuando de todos modos...")
                 page.screenshot(

@@ -122,7 +122,7 @@ class MeliVehicleAnalyzer:
                 page.goto(url)
                 
                 # Esperar a que la página cargue completamente
-                page.wait_for_load_state('networkidle', timeout=30000)
+                page.wait_for_load_state('networkidle', timeout=15000)
                 print(f"PAGINAAAAA:")
                 # Esperar elementos específicos de MELI
                 try:
