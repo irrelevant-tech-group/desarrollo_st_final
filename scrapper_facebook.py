@@ -124,6 +124,16 @@ class VehicleMarketplaceAnalyzer:
                 page.goto(url)
                 page.wait_for_load_state('networkidle')
                 page.wait_for_timeout(15000)  # Esperar 10 segundos adicionales
+                
+                # Intentar cerrar el diálogo si aparece
+                try:
+                    close_button = page.wait_for_selector('div[aria-label="Cerrar"]', timeout=5000)
+                    if close_button:
+                        close_button.click()
+                        page.wait_for_timeout(1000)  # Esperar a que se cierre
+                except:
+                    print("No se encontró el botón de cerrar o no fue necesario cerrarlo")
+                
                 try:
                     page.wait_for_selector('text=Descripción del vendedor', timeout=15000)
                 except:
