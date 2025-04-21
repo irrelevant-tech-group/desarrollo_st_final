@@ -60,4 +60,4 @@ ENV FLASK_APP=carros_ui.py
 EXPOSE 8000
 
 # Comando para ejecutar la aplicación con Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "--threads", "2", "--timeout", "120", "--max-requests", "1000", "--max-requests-jitter", "50", "--worker-class", "sync", "carros_ui:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "1", "--timeout", "300", "--keep-alive", "120", "--worker-class", "sync", "--preload", "carros_ui:app"]
