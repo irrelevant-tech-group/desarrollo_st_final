@@ -107,8 +107,11 @@ class MeliVehicleAnalyzer:
         Returns:
             bool: True si la captura fue exitosa, False en caso contrario
         """
+        print("ya va a entrar al try")
         try:
+            print("ENTRA try")
             with sync_playwright() as p:
+                print(" ENTRA sync_paywrigth")
                 browser = p.chromium.launch(headless=True)
                 context = browser.new_context(
                     viewport={'width': width, 'height': height}
@@ -119,12 +122,12 @@ class MeliVehicleAnalyzer:
                 page.goto(url)
                 
                 # Esperar a que la página cargue completamente
-                page.wait_for_load_state('networkidle', timeout=10000)
-                
+                page.wait_for_load_state('networkidle', timeout=30000)
+                print(f"PAGINAAAAA:")
                 # Esperar elementos específicos de MELI
                 try:
                     # Esperar el elemento del precio
-                    page.wait_for_selector('span.andes-money-amount__fraction', timeout=5000)
+                    page.wait_for_selector('span.andes-money-amount__fraction', timeout=10000)
                 except Exception as e:
                     print(f"Advertencia: Algunos elementos no fueron encontrados: {str(e)}")
                 

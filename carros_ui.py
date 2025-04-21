@@ -650,7 +650,7 @@ def mass_upload():
             elif action == "ofrecer":
                 logger.info(f"Acción 'ofrecer' para la URL: {single_url}")
                 # 1) Enviar mensaje de texto con analysis_text
-                sent_ok = enviar_mensaje(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), '+57' + phone_number if not phone_number.startswith('+') else phone_number, analysis_text)
+                sent_ok = enviar_mensaje(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), '+57' + phone_number if not phone_number.startswith('+') else phone_number, analysis_text)
                 if not sent_ok:
                     logger.error(f"Error al enviar el texto vía WhatsApp (masivo) para {single_url}")
                     result = {
@@ -669,7 +669,7 @@ def mass_upload():
                         img_result = scrape_images(single_url)
                         imgs = img_result.get("images", [])
                         for idx, image_url in enumerate(imgs, start=1):
-                            image_sent = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), '+57' + phone_number if not phone_number.startswith('+') else phone_number, image_url)
+                            image_sent = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), '+57' + phone_number if not phone_number.startswith('+') else phone_number, image_url)
                             if not image_sent:
                                 print(f"Error enviando imagen (masivo) {idx} - {image_url}")
                                 logger.error(f"Error enviando imagen (masivo) {idx} - {image_url}")
@@ -679,7 +679,7 @@ def mass_upload():
                         fb_img_result = scrape_facebook_images(single_url)
                         fb_imgs = fb_img_result.get("images", [])
                         for idx, image_url in enumerate(fb_imgs, start=1):
-                            image_sent = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), '+57' + phone_number if not phone_number.startswith('+') else phone_number, image_url)
+                            image_sent = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), '+57' + phone_number if not phone_number.startswith('+') else phone_number, image_url)
                             if not image_sent:
                                 print(f"Error enviando imagen (masivo) {idx} - {image_url}")
                                 logger.error(f"Error enviando imagen (masivo) {idx} - {image_url}")
@@ -902,14 +902,14 @@ def process():
                 # ===============================
                 if result["status"] == "success":
                     logger.info(f"Enviando información al comercial {phone_number} en /process para {single_url}")
-                    sent_ok_commercial = enviar_mensaje(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), phone_number, analysis_text)
+                    sent_ok_commercial = enviar_mensaje(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), phone_number, analysis_text)
                     if sent_ok_commercial:
                         if is_mercadolibre:
                             logger.info(f"Extrayendo y enviando imágenes de Mercado Libre al comercial para {single_url}")
                             img_result = scrape_images(single_url)
                             imgs = img_result.get("images", [])
                             for idx, image_url in enumerate(imgs, start=1):
-                                image_sent_commercial = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), phone_number, image_url)
+                                image_sent_commercial = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), phone_number, image_url)
                                 if not image_sent_commercial:
                                     print(f"Error enviando imagen al comercial {idx} - {image_url}")
                                     logger.error(f"Error enviando imagen al comercial {idx} - {image_url}")
@@ -919,7 +919,7 @@ def process():
                             fb_img_result = scrape_facebook_images(single_url)
                             fb_imgs = fb_img_result.get("images", [])
                             for idx, image_url in enumerate(fb_imgs, start=1):
-                                image_sent_commercial = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), phone_number, image_url)
+                                image_sent_commercial = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), phone_number, image_url)
                                 if not image_sent_commercial:
                                     print(f"Error enviando imagen al comercial {idx} - {image_url}")
                                     logger.error(f"Error enviando imagen al comercial {idx} - {image_url}")
@@ -927,14 +927,14 @@ def process():
                 # Enviar al cliente si se marcó la opción
                 if send_to_client and client_phone:
                     logger.info(f"Enviando información al cliente {client_phone} en /process para {single_url}")
-                    sent_ok_client = enviar_mensaje(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), client_phone, analysis_text)
+                    sent_ok_client = enviar_mensaje(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), client_phone, analysis_text)
                     if sent_ok_client:
                         if is_mercadolibre:
                             logger.info(f"Extrayendo y enviando imágenes de Mercado Libre al cliente para {single_url}")
                             img_result = scrape_images(single_url)
                             imgs = img_result.get("images", [])
                             for idx, image_url in enumerate(imgs, start=1):
-                                image_sent_client = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), client_phone, image_url)
+                                image_sent_client = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), client_phone, image_url)
                                 if not image_sent_client:
                                     print(f"Error enviando imagen al cliente {idx} - {image_url}")
                                     logger.error(f"Error enviando imagen al cliente {idx} - {image_url}")
@@ -944,7 +944,7 @@ def process():
                             fb_img_result = scrape_facebook_images(single_url)
                             fb_imgs = fb_img_result.get("images", [])
                             for idx, image_url in enumerate(fb_imgs, start=1):
-                                image_sent_client = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), client_phone, image_url)
+                                image_sent_client = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), client_phone, image_url)
                                 if not image_sent_client:
                                     print(f"Error enviando imagen al cliente {idx} - {image_url}")
                                     logger.error(f"Error enviando imagen al cliente {idx} - {image_url}")
@@ -956,11 +956,11 @@ def process():
                 if send_to_client and client_phone:
                     # Se agrega el número de cliente, pero SOLO al comercial
                     final_msg_commercial += f"\nTelefono Cliente: {client_phone}"
-                enviar_mensaje(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), phone_number, final_msg_commercial)
+                enviar_mensaje(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), phone_number, final_msg_commercial)
 
             elif action == "ofrecer":
                 logger.info(f"Acción 'ofrecer' en /process para {single_url}")
-                sent_ok = enviar_mensaje(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), phone_number, analysis_text)
+                sent_ok = enviar_mensaje(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), phone_number, analysis_text)
                 if not sent_ok:
                     logger.error(f"Error al enviar el texto vía WhatsApp en /process para {single_url}")
                     result = {
@@ -982,7 +982,7 @@ def process():
                     img_result = scrape_images(single_url)
                     imgs = img_result.get("images", [])
                     for idx, image_url in enumerate(imgs, start=1):
-                        image_sent = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), phone_number, image_url)
+                        image_sent = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), phone_number, image_url)
                         if not image_sent:
                             print(f"Error enviando imagen {idx} - {image_url}")
                             logger.error(f"Error enviando imagen {idx} - {image_url}")
@@ -992,7 +992,7 @@ def process():
                     fb_img_result = scrape_facebook_images(single_url)
                     fb_imgs = fb_img_result.get("images", [])
                     for idx, image_url in enumerate(fb_imgs, start=1):
-                        image_sent = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), phone_number, image_url)
+                        image_sent = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), phone_number, image_url)
                         if not image_sent:
                             print(f"Error enviando imagen {idx} - {image_url}")
                             logger.error(f"Error enviando imagen {idx} - {image_url}")
@@ -1013,14 +1013,14 @@ def process():
                 # Enviar al cliente si se marcó la opción
                 if send_to_client and client_phone:
                     logger.info(f"También enviando información al cliente {client_phone} en /process para {single_url}")
-                    sent_ok_client = enviar_mensaje(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), client_phone, analysis_text)
+                    sent_ok_client = enviar_mensaje(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), client_phone, analysis_text)
                     if sent_ok_client:
                         if is_mercadolibre:
                             logger.info(f"Extrayendo y enviando imágenes de Mercado Libre al cliente para {single_url}")
                             img_result = scrape_images(single_url)
                             imgs = img_result.get("images", [])
                             for idx, image_url in enumerate(imgs, start=1):
-                                image_sent_client = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), client_phone, image_url)
+                                image_sent_client = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), client_phone, image_url)
                                 if not image_sent_client:
                                     print(f"Error enviando imagen al cliente {idx} - {image_url}")
                                     logger.error(f"Error enviando imagen al cliente {idx} - {image_url}")
@@ -1030,7 +1030,7 @@ def process():
                             fb_img_result = scrape_facebook_images(single_url)
                             fb_imgs = fb_img_result.get("images", [])
                             for idx, image_url in enumerate(fb_imgs, start=1):
-                                image_sent_client = enviar_imagen(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), client_phone, image_url)
+                                image_sent_client = enviar_imagen(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), client_phone, image_url)
                                 if not image_sent_client:
                                     print(f"Error enviando imagen al cliente {idx} - {image_url}")
                                     logger.error(f"Error enviando imagen al cliente {idx} - {image_url}")
@@ -1041,7 +1041,7 @@ def process():
                 final_msg_commercial = f"URL Vehiculo Procesado 🚘🔥: {single_url}"
                 if send_to_client and client_phone:
                     final_msg_commercial += f"\nTelefono Cliente: {client_phone}"
-                enviar_mensaje(os.getenv(ULTRAMSG_TOKEN), os.getenv(ULTRAMSG_INSTANCE_ID), phone_number, final_msg_commercial)
+                enviar_mensaje(os.getenv("ULTRAMSG_TOKEN"), os.getenv("ULTRAMSG_INSTANCE_ID"), phone_number, final_msg_commercial)
 
             else:
                 logger.warning(f"Acción desconocida en /process: {action} para {single_url}")
