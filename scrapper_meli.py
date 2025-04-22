@@ -127,7 +127,7 @@ class MeliVehicleAnalyzer:
                 # Esperar elementos específicos de MELI
                 try:
                     # Esperar el elemento del precio
-                    page.wait_for_selector('span.andes-money-amount__fraction', timeout=10000)
+                    page.wait_for_selector('span.andes-money-amount__fraction', timeout=15000)
                 except Exception as e:
                     print(f"Advertencia: Algunos elementos no fueron encontrados: {str(e)}")
                 

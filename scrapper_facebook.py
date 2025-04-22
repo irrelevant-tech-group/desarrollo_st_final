@@ -123,7 +123,7 @@ class VehicleMarketplaceAnalyzer:
                 page = context.new_page()
                 page.goto(url)
                 page.wait_for_load_state('networkidle')
-                page.wait_for_timeout(15000)  # Esperar 10 segundos adicionales
+                page.wait_for_timeout(15000)  # Esperar 15 segundos adicionales
                 
                 # Intentar cerrar el diálogo si aparece
                 try:
@@ -134,20 +134,44 @@ class VehicleMarketplaceAnalyzer:
                 except:
                     print("No se encontró el botón de cerrar o no fue necesario cerrarlo")
                 
+                # Intentar encontrar el selector pero no fallar si no se encuentra
                 try:
                     page.wait_for_selector('text=Descripción del vendedor', timeout=15000)
                 except:
                     print("No se encontró el selector específico, continuando de todos modos...")
+                
+                # Siempre tomar la captura de pantalla, independientemente de si se encontraron los elementos
                 page.screenshot(
                     path=output_file,
                     clip={"x": width - clip_width, "y": 0, "width": clip_width, "height": height}
                 )
+                print(f"Screenshot guardado en: {output_file}")
+                
                 context.close()
                 browser.close()
-            return True
+                return True
         except Exception as e:
             print(f"Error tomando screenshot: {str(e)}")
-            return False
+            # Intentar tomar una captura completa si el recorte falló
+            try:
+                with sync_playwright() as p:
+                    browser = p.chromium.launch(headless=True)
+                    context = browser.new_context(
+                        viewport={'width': width, 'height': height}
+                    )
+                    page = context.new_page()
+                    page.goto(url)
+                    page.wait_for_load_state('networkidle')
+                    page.wait_for_timeout(5000)
+                    # Tomar captura completa sin recorte
+                    page.screenshot(path=output_file)
+                    print(f"Screenshot completo guardado en: {output_file}")
+                    context.close()
+                    browser.close()
+                    return True
+            except Exception as backup_error:
+                print(f"Error tomando screenshot de respaldo: {str(backup_error)}")
+                return False
 
     def encode_image(self, image_path):
         """
