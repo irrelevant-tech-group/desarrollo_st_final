@@ -61,5 +61,5 @@ ENV FLASK_RUN_PORT=8000
 # Expone el puerto para Flask
 EXPOSE 8000
 
-# Comando para ejecutar la aplicación
-CMD ["flask", "run"]
+# Comando para ejecutar la aplicación con Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "500", "carros_ui:app"]
